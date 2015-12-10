@@ -20,11 +20,15 @@
             margin: auto;
         }
 
-        .map {
+        /* Specific mapael css class are below
+         * 'mapael' class is added by plugin
+        */
+
+        .mapael .map {
             position: relative;
         }
 
-        .mapTooltip {
+        .mapael .mapTooltip {
             position: fixed;
             background-color: #fff;
             moz-opacity: 0.70;
@@ -38,7 +42,8 @@
             color: #343434;
         }
 
-        .zoomIn, .zoomOut {
+        .mapael .zoomIn,
+        .mapael .zoomOut {
             background-color: #fff;
             border: 1px solid #ccc;
             color: #000;
@@ -60,7 +65,7 @@
             user-select: none;
         }
 
-        .zoomOut {
+        .mapael .zoomOut {
             top: 30px;
         }
     </style>
@@ -133,37 +138,34 @@
             $('#refresh').on('click', function () {
 
                 // Update some plots and areas attributes ...
-                var updatedOptions = {
-                            'areas': {},
-                            'plots': {},
-                            'links': {
-                                'parislyon': {
-                                    attrs: {
-                                        'stroke-width': 8
-                                        , 'stroke': 'red'
-                                    }
-                                }
-                            },
-
-                        }
-                        , opt = {
-                            animDuration: 1000,
-                            'deletedLinks': ['parisrennes'],
-                            'newLinks': {
-                                'renneslyon': {
-                                    factor: -0.5
-                                    , between: ['rennes', 'lyon']
-                                    , attrs: {
-                                        "stroke-width": 2
-                                    }
+                var opt = {
+                    mapOptions: {
+                        'areas': {},
+                        'plots': {},
+                        'links': {
+                            'parislyon': {
+                                attrs: {
+                                    'stroke-width': 8
+                                    , 'stroke': 'red'
                                 }
                             }
-                        };
+                        },
 
-                // and delete some others ...
-                var deletedPlots = ["paris", "lyon"];
+                    }, 
+                    animDuration: 1000,
+                    'deleteLinkKeys': ['parisrennes'],
+                    'newLinks': {
+                        'renneslyon': {
+                            factor: -0.5
+                            , between: ['rennes', 'lyon']
+                            , attrs: {
+                                "stroke-width": 2
+                            }
+                        }
+                    }
+                };
 
-                $(".mapcontainer").trigger('update', [updatedOptions, {}, [], opt]);
+                $(".mapcontainer").trigger('update', [opt]);
             });
         });
     </script>
