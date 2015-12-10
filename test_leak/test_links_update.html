@@ -138,53 +138,59 @@
 				handle = setInterval(function () {
 				
 					setTimeout(function(){
-						var deletedPlots = "all", 
-							opt = {
-								animDuration : 50,
-								deletedLinks : "all"
-								};
+						var options = {
+                            deletePlotKeys: "all",
+                            deleteLinkKeys: "all",
+                            animDuration : 50
+                        };
 						
-						$(".mapcontainer").trigger('update', [{}, {}, deletedPlots, opt]);
+						$(".mapcontainer").trigger('update', [options]);
 					}, 0);
 					
 					setTimeout(function(){
 						// Update some plots and areas attributes ...
-						var updatedOptions = {
-									'areas': {},
-									'plots': {},
-									'links': {'parislyon': {attrs: {'stroke-width': 8, 'stroke': 'red'}}}
-								}
-								, opt = {
-									animDuration: 50,
-									'newLinks': {
-										'renneslyon': {
-											factor: -0.5
-											, between: ['rennes', 'lyon']
-											, attrs: { "stroke-width": 2 }
-										}
-									}
-								};
-								
-						var newPlots = {
-							"Limoge": {
-								latitude: 45.834444,
-								longitude: 1.261667,
-								text: {content: "Limoge"},
-								tooltip: {content: "Limoge"}
-							}
-							, "Dijon": {
-								size: 60,
-								latitude: 47.323056,
-								longitude: 5.041944,
-								text: {
-									content: "Dijon",
-									position: "left",
-									margin: 5
-								}
-							}
-						}
+						var options = {
+                            animDuration: 50,
+                            mapOptions: {
+                                areas: {},
+                                plots: {},
+                                links: {
+                                    parislyon: {
+                                        attrs: {
+                                            'stroke-width': 8, 
+                                            'stroke': 'red'
+                                        }
+                                    }
+                                }
+							},
+                            newLinks: {
+                                renneslyon: {
+                                    factor: -0.5,
+                                    between: ['rennes', 'lyon'],
+                                    attrs: { "stroke-width": 2 }
+                                }
+                            },
+                            newPlots: {
+                                Limoge: {
+                                    latitude: 45.834444,
+                                    longitude: 1.261667,
+                                    text: {content: "Limoge"},
+                                    tooltip: {content: "Limoge"}
+                                },
+                                Dijon: {
+                                    size: 60,
+                                    latitude: 47.323056,
+                                    longitude: 5.041944,
+                                    text: {
+                                        content: "Dijon",
+                                        position: "left",
+                                        margin: 5
+                                    }
+                                }
+                            }
+                        };
 
-						$(".mapcontainer").trigger('update', [updatedOptions, newPlots, [], opt]);
+						$(".mapcontainer").trigger('update', [options]);
 					}, 250);
 					
 					i = i + 1;

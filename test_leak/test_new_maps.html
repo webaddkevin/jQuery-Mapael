@@ -9132,24 +9132,16 @@
 					});
                 },
                 fnRemove = function() {
-					setTimeout(function(){
-						$(".mapcontainer").trigger('destroy');
-					}, 0);
-					
-					setTimeout(function(){
-                        $(".mapcontainer").empty();
-                        $(".mapcontainer").html(mapcontainer_html);
-                    }, 250);
-                }
+                   $(".mapcontainer").data("mapael").destroy();
+                };
+                
 				handle = setInterval(function() {
                     if (max_iteration > 0) {
-                        fnRemove();
-                        setTimeout(function(){
-                            fnCreate();
-                        }, 500);
+                        fnCreate();
                     }
 					i = i + 1;
 					if (i >= max_iteration) {
+                        fnRemove();
 						$('.current_iteration').html(i + " (done)");
 						clearInterval(handle);
 						handle = 0;
